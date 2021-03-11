@@ -83,6 +83,7 @@ namespace ConsoleApp3
                             capitalMoney += (int)betMoney3;
                             betMoney3 = 0;
                             Console.WriteLine($"現在の軍資金は￥{capitalMoney}です");
+                            Console.ReadLine();
                         }
                         else
                         {
@@ -91,6 +92,7 @@ namespace ConsoleApp3
                             capitalMoney += (int)betMoney3;
                             betMoney3 = 0;
                             Console.WriteLine($"現在の軍資金は￥{capitalMoney}です");
+                            Console.ReadLine();
                         }
 
                     }
@@ -125,6 +127,7 @@ namespace ConsoleApp3
                             capitalMoney += (int)betMoney2;
                             betMoney2 = 0;
                             Console.WriteLine($"現在の軍資金は￥{capitalMoney}です");
+                            Console.ReadLine();
                         }
                         else
                         {
@@ -133,6 +136,7 @@ namespace ConsoleApp3
                             capitalMoney += (int)betMoney2;
                             betMoney2 = 0;
                             Console.WriteLine($"現在の軍資金は￥{capitalMoney}です");
+                            Console.ReadLine();
                         }
 
                     }
@@ -167,6 +171,7 @@ namespace ConsoleApp3
                             capitalMoney += (int)betMoney1;
                             betMoney1 = 0;
                             Console.WriteLine($"現在の軍資金は￥{capitalMoney}です");
+                            Console.ReadLine();
                         }
                         else
                         {
@@ -176,6 +181,7 @@ namespace ConsoleApp3
                             capitalMoney += (int)betMoney1;
                             betMoney1 = 0;
                             Console.WriteLine($"現在の軍資金は￥{capitalMoney}です");
+                            Console.ReadLine();
                         }
 
                     }
