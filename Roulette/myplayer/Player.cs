@@ -38,7 +38,7 @@ namespace myplayer
             this.getMoney();
             this.getTarget();
             this.getwaitTimes();
-            Console.WriteLine($"連続で{resetNum}回出なかったフィールドに賭けます");
+            Console.WriteLine($"連続で{this.waitTimes}回出なかったフィールドに賭けます");
         }
 
     }
