@@ -18,6 +18,11 @@ namespace myplayer
             this.target = 0;
             this.waitTimes = 0;
         }
+
+        public void checkStatus()
+        {
+            Console.WriteLine($"現在の資金は￥{this.capitalMoney}です");
+        }
         
         private void getMoney(){
             Console.WriteLine("資金を入力してください (単位:円）");
@@ -39,6 +44,24 @@ namespace myplayer
             this.getTarget();
             this.getwaitTimes();
             Console.WriteLine($"連続で{this.waitTimes}回出なかったフィールドに賭けます");
+        }
+
+        public bool isBankrupt()
+        {
+            if (this.capitalMoney >= this.target)
+            {
+                Console.WriteLine("目標達成！");
+                return false;
+            }
+            else if (this.capitalMoney <= 0)
+            {
+                Console.WriteLine("残念！破産してしまいました！");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
     }

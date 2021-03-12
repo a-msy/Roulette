@@ -1,198 +1,89 @@
 using myplayer;
+using myroulette;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using Roulette;
 
 namespace mystrategy
 {
     public class Strategy
     {
-        int first;
-        int second;
-        int third;
-
-        int betMoneyForFirst;
-        int betMoneyForSecond;
-        int betMoneyForThird;
+        int[] area = new int[4] { 0, 0, 0, 0 };
+        int[] betMoney = new int[4] { 0, 0, 0, 0 };
 
         public Strategy(int waitTimes){
-            this.first = waitTimes;
-            this.second = waitTimes;
-            this.third = waitTimes;
-            this.betMoneyForFirst = 0;
-            this.betMoneyForSecond = 0;
-            this.betMoneyForThird = 0;
-        }
-
-        public void checkChance(Player player)
-        {
-            if(this.first == 0)
+            for(int loop = 0; loop < Const.sections; loop++)
             {
-                Console.WriteLine("1stÇ…Ç©ÇØÇÈÉ`ÉÉÉìÉXÇ™óàÇ‹ÇµÇΩ.éëã‡{0}ÇÃ1ÅìÇBETÇµÇ‹Ç∑\n", player.capitalMoney);
-                // Ç»ÇÈÇ◊Ç≠éÆÇÕÇ›Ç‚Ç∑Ç≠ÅDÅ@+=Å@Ç∆Ç©ÇªÇÍÇæÇØÇ≈î]Ç›ÇªîÊÇÍÇÈÇÃÇ≈ÅD
-                this.betMoneyForFirst = (int)Math.Round(player.capitalMoney * 0.01);
-                player.capitalMoney -= this.betMoneyForFirst;
-            }
-
-            if(this.second == 0)
-            {
-                Console.WriteLine("2ndÇ…Ç©ÇØÇÈÉ`ÉÉÉìÉXÇ™óàÇ‹ÇµÇΩ.éëã‡{0}ÇÃ1ÅìÇBETÇµÇ‹Ç∑\n", player.capitalMoney);
-                this.betMoneyForSecond = (int)Math.Round(player.capitalMoney * 0.01);
-                player.capitalMoney -= this.betMoneyForSecond;
-            }
-
-            if (this.third == 0)
-            {
-                Console.WriteLine("3rdÇ…Ç©ÇØÇÈÉ`ÉÉÉìÉXÇ™óàÇ‹ÇµÇΩ.éëã‡{0}ÇÃ1ÅìÇBETÇµÇ‹Ç∑\n", player.capitalMoney);
-                this.betMoneyForThird = (int)Math.Round(player.capitalMoney * 0.01);
-                player.capitalMoney -= this.betMoneyForThird;
+                this.area[loop] = waitTimes;
+                this.betMoney[loop] = 0;
             }
         }
 
-        public void checkStrategy(int roll)
+        public void checkChance(Player player, Roller roller)
         {
-            if (number >= 25)
+            if(roller.roll > Const.zero && roller.roll < Const.double_zero)
             {
-                Console.WriteLine($"î‘çÜÇÕ{number}ÅAà íuÇÕ3rdÇ≈Ç∑");
-                trd = resetNum;
-                fst--;
-                snd--;
-                if (betMoney3 > 0)
+                if(area[roller.checkPoint(false)] == 0)
                 {
-                    if (number >= 28 && number <= 33)
-                    {
-                        Console.WriteLine("ìñÇΩÇËÅI4î{Ç≈Ç∑ÅI");
-                        betMoney3 *= 4;
-                        capitalMoney += (int)betMoney3;
-                        betMoney3 = 0;
-                        Console.WriteLine($"åªç›ÇÃåRéëã‡ÇÕÅè{capitalMoney}Ç≈Ç∑");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine("ìñÇΩÇËÅI2î{Ç≈Ç∑ÅI");
-                        betMoney3 *= 2;
-                        capitalMoney += (int)betMoney3;
-                        betMoney3 = 0;
-                        Console.WriteLine($"åªç›ÇÃåRéëã‡ÇÕÅè{capitalMoney}Ç≈Ç∑");
-                        Console.ReadLine();
-                    }
-
+                    Console.WriteLine($"ÉGÉäÉA{roller.checkPoint(false)}Ç…Ç©ÇØÇÈÉ`ÉÉÉìÉXÇ™óàÇ‹ÇµÇΩ.éëã‡{player.capitalMoney}ÇÃ1ÅìÇBETÇµÇ‹Ç∑");
+                    // Ç»ÇÈÇ◊Ç≠éÆÇÕÇ›Ç‚Ç∑Ç≠ÅDÅ@+=Å@Ç∆Ç©ÇªÇÍÇæÇØÇ≈î]Ç›ÇªîÊÇÍÇÈÇÃÇ≈ÅD
+                    this.betMoney[roller.checkPoint(false)] = (int)Math.Round(player.capitalMoney * 0.01);
+                    player.capitalMoney -= this.betMoney[roller.checkPoint(false)];
+                    Console.WriteLine($"ä|ÇØã‡ÇÕÅè{this.betMoney[roller.checkPoint(false)]}Ç≈Ç∑(éëã‡ÅF{player.capitalMoney})");
                 }
-                if (betMoney1 > 0 || betMoney2 > 0)
-                {
-                    Console.WriteLine("äOÇÍÅIä|ÇØã‡Çî{Ç…ÇµÇƒÇ‡Ç§àÍìxìqÇØÇ‹Ç∑");
-                    if (betMoney1 > 0)
-                    {
-                        betMoney1 *= 2;
-                        capitalMoney -= (int)betMoney1;
-                    }
-                    else
-                    {
-                        betMoney2 *= 2;
-                        capitalMoney -= (int)betMoney2;
-                    }
-
-                }
+                
             }
-            else if (number >= 13)
+        }
+
+        private void checkLoseOrWin(Player player, Roller roller, int target_area, int lost_area1, int lost_area2, int min, int max)
+        {
+            this.area[target_area] = player.waitTimes;
+            this.area[lost_area2] -= 1;
+            this.area[lost_area1] -= 1;
+
+            if (this.betMoney[target_area] > 0)
             {
-                Console.WriteLine($"î‘çÜÇÕ{number}ÅAà íuÇÕ2ndÇ≈Ç∑");
-                snd = resetNum;
-                fst--;
-                trd--;
-                if (betMoney2 > 0)
+                if (roller.roll >= min && roller.roll <= max)
                 {
-                    if (number >= 16 && number <= 21)
-                    {
-                        Console.WriteLine("ìñÇΩÇËÅI4î{Ç≈Ç∑ÅI");
-                        betMoney2 *= 4;
-                        capitalMoney += (int)betMoney2;
-                        betMoney2 = 0;
-                        Console.WriteLine($"åªç›ÇÃåRéëã‡ÇÕÅè{capitalMoney}Ç≈Ç∑");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine("ìñÇΩÇËÅI2î{Ç≈Ç∑ÅI");
-                        betMoney2 *= 2;
-                        capitalMoney += (int)betMoney2;
-                        betMoney2 = 0;
-                        Console.WriteLine($"åªç›ÇÃåRéëã‡ÇÕÅè{capitalMoney}Ç≈Ç∑");
-                        Console.ReadLine();
-                    }
-
+                    roller.return4(player, this.betMoney[target_area]);
                 }
-                if (betMoney1 > 0 || betMoney3 > 0)
+                else
                 {
-                    Console.WriteLine("äOÇÍÅIä|ÇØã‡Çî{Ç…ÇµÇƒÇ‡Ç§àÍìxìqÇØÇ‹Ç∑");
-                    if (betMoney1 > 0)
-                    {
-                        betMoney1 *= 2;
-                        capitalMoney -= (int)betMoney1;
-                    }
-                    else
-                    {
-                        betMoney3 *= 2;
-                        capitalMoney -= (int)betMoney3;
-                    }
-
+                    roller.return2(player, this.betMoney[target_area]);
                 }
+
             }
-            else if (number >= 1)
+            if (this.betMoney[lost_area1] > 0 || this.betMoney[lost_area2] > 0)
             {
-                Console.WriteLine($"î‘çÜÇÕ{number}ÅAà íuÇÕ1stÇ≈Ç∑");
-                fst = resetNum;
-                snd--;
-                trd--;
-                if (betMoney1 > 0)
+                Console.WriteLine($"äOÇÍÅIä|ÇØã‡Ç{Const.monte}î{Ç…ÇµÇƒÇ‡Ç§àÍìxìqÇØÇ‹Ç∑");
+                if (this.betMoney[lost_area1] > 0)
                 {
-                    if (number >= 4 && number <= 9)
-                    {
-                        Console.WriteLine("ìñÇΩÇËÅI4î{Ç≈Ç∑ÅI");
-                        betMoney1 *= 4;
-                        capitalMoney += (int)betMoney1;
-                        betMoney1 = 0;
-                        Console.WriteLine($"åªç›ÇÃåRéëã‡ÇÕÅè{capitalMoney}Ç≈Ç∑");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-
-                        Console.WriteLine("ìñÇΩÇËÅI2î{Ç≈Ç∑ÅI");
-                        betMoney1 *= 2;
-                        capitalMoney += (int)betMoney1;
-                        betMoney1 = 0;
-                        Console.WriteLine($"åªç›ÇÃåRéëã‡ÇÕÅè{capitalMoney}Ç≈Ç∑");
-                        Console.ReadLine();
-                    }
-
+                    this.betMoney[lost_area1] *= Const.monte;
+                    Console.WriteLine($"ä|ÇØã‡ÇÕÅè{this.betMoney[lost_area1]}Ç≈Ç∑");
+                    player.capitalMoney -= this.betMoney[lost_area1];
                 }
-                if (betMoney2 > 0 || betMoney3 > 0)
+                else
                 {
-                    Console.WriteLine("äOÇÍÅIä|ÇØã‡Çî{Ç…ÇµÇƒÇ‡Ç§àÍìxìqÇØÇ‹Ç∑");
-                    if (betMoney2 > 0)
-                    {
-                        betMoney2 *= 2;
-                        capitalMoney -= (int)betMoney2;
-                    }
-                    else
-                    {
-                        betMoney3 *= 2;
-                        capitalMoney -= (int)betMoney3;
-                    }
-
+                    this.betMoney[lost_area2] *= Const.monte;
+                    Console.WriteLine($"ä|ÇØã‡ÇÕÅè{this.betMoney[lost_area2]}Ç≈Ç∑");
+                    player.capitalMoney -= this.betMoney[lost_area2];
                 }
-            }
 
-            if (capitalMoney >= target)
-            {
-                Console.WriteLine("ñ⁄ïWíBê¨ÅI");
-                break;
             }
-            if (capitalMoney <= 0)
+        }
+
+        public void checkStrategy(Player player, Roller roller)
+        {
+            if (roller.roll >= Const.third_area)
             {
-                Console.WriteLine("écîOÅIîjéYÇµÇƒÇµÇ‹Ç¢Ç‹ÇµÇΩÅI");
+                this.checkLoseOrWin(player, roller, 3, 1, 2, 28, 33);
+            }
+            else if (roller.roll >= Const.second_area)
+            {
+                this.checkLoseOrWin(player, roller, 2, 1, 3, 16, 21);
+            }
+            else if (roller.roll >= Const.first_area)
+            {
+                this.checkLoseOrWin(player, roller, 1, 2, 3, 4, 9);
             }
         }
     }

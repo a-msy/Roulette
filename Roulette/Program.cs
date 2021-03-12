@@ -12,16 +12,20 @@ namespace ConsoleApp3
             // クラスや変数は頭で宣言するほうが個人的には見やすくて助かる．
 
             Player player = new Player();
-            Roulette roulette = new Roulette();
+            Roller roller = new Roller();
             player.initializePlayer();
             Strategy strategy = new Strategy(player.waitTimes); // Strategyには何かしらintの値が必要なので，playerの初期化後に宣言を行う
 
-            while (player.capitalMoney > 0)
+            while (player.isBankrupt())
             {
-                strategy.checkChance(player);
-                roulette.rolling();
-                strategy.checkStrategy(roulette.roll);
+                player.checkStatus();
+                roller.rolling();
+                strategy.checkChance(player, roller);
+                strategy.checkStrategy(player, roller);
+                Console.WriteLine("\n");
             }
+
+            return ;
         }
     }
 }
