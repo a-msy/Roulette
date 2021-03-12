@@ -1,38 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using myplayer;
+using mystrategy;
+using myroulette;
 
 namespace ConsoleApp3
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            Player player = new Player();
+            Roulette roulette = new Roulette();
+            player.initializePlayer();
 
-            Console.WriteLine("資金を入力してください (単位:円）");
-            var capitalMoney = int.Parse(Console.ReadLine());
+            Strategy strategy = new Strategy(player.waitTimes); // Strategyには何かしらintの値が必要なので，playerの初期化後に宣言を行う
 
-            Console.WriteLine("目標金額を入力してください (単位:円）");
-            var target = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("賭けるまで待つ回数を設定して下さい");
-
-            var resetNumstr = Console.ReadLine();
-            var resetNum = int.Parse(resetNumstr);
-
-            Console.WriteLine($"連続で{resetNum}回出なかったフィールドに賭けます");
-            Console.ReadLine();
-
-            var fst = resetNum;
-            var snd = resetNum;
-            var trd = resetNum;
-
-            double betMoney1 = 0;
-            double betMoney2 = 0;
-            double betMoney3 = 0;
-
-
-            while (capitalMoney > 0)
+            while (player.capitalMoney > 0)
             {
 
                 if (fst == 0)
@@ -212,9 +197,6 @@ namespace ConsoleApp3
                     Console.WriteLine("残念！破産してしまいました！");
                 }
             }
-
-
-
         }
     }
 }
